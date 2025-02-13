@@ -1,3 +1,6 @@
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -21,4 +24,19 @@ public class runner {
         System.out.println("4: " + card.getSecurityCode());
         
     }
+    
+    public static byte[] convertObjectToBytes(Object obj) {
+    	ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    	
+    	try {
+    		ObjectOutputStream oos = new ObjectOutputStream(baos);
+    		oos.writeObject(obj);
+    		return baos.toByteArray();
+    	} catch(IOException ioe) {
+    		ioe.printStackTrace();
+    	}
+
+    	throw new RuntimeException();
+    }
+    
 }
