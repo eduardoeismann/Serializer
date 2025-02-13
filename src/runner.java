@@ -1,3 +1,7 @@
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -20,5 +24,19 @@ public class runner {
         System.out.println("3: " + card.getValidity());
         System.out.println("4: " + card.getSecurityCode());
         
+    }
+    
+    public static Object convertBytesToObject(byte[] bytes) {
+        InputStream is = new ByteArrayInputStream(bytes);
+        
+        try(ObjectInputStream ois = new ObjectInputStream(is)) {
+            return ois.readObject();
+        } catch(IOException ioe) {
+            ioe.printStackTrace();
+        } catch(ClassNotFoundException cnfe) {
+        	cnfe.printStackTrace();
+        }
+        
+        throw new RuntimeException();
     }
 }
